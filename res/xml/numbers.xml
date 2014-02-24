@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    
+    <TimeDuration from="2014-02-24" to="2014-02-27">
+		<WeekDay Day="1">
+		<Number>1,6</Number>
+		</WeekDay>
+		
+		<WeekDay Day="2">
+		<Number>2,7</Number>
+		</WeekDay>
+		
+		<WeekDay Day="3">
+		<Number>3,8</Number>
+		</WeekDay>
+		
+		<WeekDay Day="4">
+		<Number>4,9</Number>
+		</WeekDay>
+		
+	</TimeDuration>
+    
+	<TimeDuration from="2014-03-01" to="2014-04-12">
+		<WeekDay Day="1">
+		<Number>1,6</Number>
+		</WeekDay>
+		
+		<WeekDay Day="2">
+		<Number>2,7</Number>
+		</WeekDay>
+		
+		<WeekDay Day="3">
+		<Number>3,8</Number>
+		</WeekDay>
+		
+		<WeekDay Day="4">
+		<Number>4,9</Number>
+		</WeekDay>
+		
+		<WeekDay Day="5">
+		<Number>5,0</Number>
+		</WeekDay>
+	</TimeDuration>
+	
+	<TimeDuration from="2014-04-13" to="2014-07-12">
+		<WeekDay Day="1">
+		<Number>5,0</Number>
+		</WeekDay>
+		
+		<WeekDay Day="2">
+		<Number>1,6</Number>
+		</WeekDay>
+		
+		<WeekDay Day="3">
+		<Number>2,7</Number>
+		</WeekDay>
+		
+		<WeekDay Day="4">
+		<Number>3,8</Number>
+		</WeekDay>
+		
+		<WeekDay Day="5">
+		<Number>4,9</Number>
+		</WeekDay>
+	</TimeDuration>
+	
+	<TimeDuration from="2014-07-13" to="2014-10-11">
+		<WeekDay Day="1">
+		<Number>4,0</Number>
+		</WeekDay>
+		
+		<WeekDay Day="2">
+		<Number>5,0</Number>
+		</WeekDay>
+		
+		<WeekDay Day="3">
+		<Number>1,6</Number>
+		</WeekDay>
+		
+		<WeekDay Day="4">
+		<Number>2,7</Number>
+		</WeekDay>
+		
+		<WeekDay Day="5">
+		<Number>3,8</Number>
+		</WeekDay>
+	</TimeDuration>
+	
+	<TimeDuration from="2014-10-12" to="2015-01-10">
+		<WeekDay Day="1">
+		<Number>3,8</Number>
+		</WeekDay>
+		
+		<WeekDay Day="2">
+		<Number>4,9</Number>
+		</WeekDay>
+		
+		<WeekDay Day="3">
+		<Number>5,0</Number>
+		</WeekDay>
+		
+		<WeekDay Day="4">
+		<Number>1,6</Number>
+		</WeekDay>
+		
+		<WeekDay Day="5">
+		<Number>2,7</Number>
+		</WeekDay>
+	</TimeDuration>
+	
+</root>
