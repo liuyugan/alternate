@@ -16,13 +16,12 @@
 
     <DatePicker
         android:id="@+id/datePicker1"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:calendarViewShown="false"
         android:maxDate="01/10/2015"
-        android:minDate="02/24/2014" 
-        />
+        android:minDate="02/24/2014" />
 
     <Spinner
         android:id="@+id/spinnerNumbers"
@@ -32,22 +31,21 @@
         android:layout_below="@+id/txtInput"
         android:entries="@array/number_arrays" />
 
-    <Button
-        android:id="@+id/btnSearch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="14dp"
-        android:layout_marginLeft="54dp"
-        android:text="@string/search" 
-        android:onClick="getResulte"/>
-
     <TextView
         android:id="@+id/txtResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/datePicker1"
         android:text="@string/result" />
+
+    <Button
+        android:id="@+id/btnSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="18dp"
+        android:onClick="getResulte"
+        android:text="@string/search" />
 
 </RelativeLayout>

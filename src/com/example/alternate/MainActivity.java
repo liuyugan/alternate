@@ -12,6 +12,7 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.appwidget.AppWidgetProvider;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.view.Menu;
@@ -37,8 +38,7 @@ public class MainActivity extends Activity {
 	
 	public void getResulte(View view) throws XmlPullParserException, IOException, ParseException
     {
-    	//TODO:If today is Saturday or Sunday
-    	
+    	//Find Result TextView
     	TextView displayTextView = (TextView) findViewById(R.id.txtResult);
                 
         //Get your input
@@ -57,7 +57,17 @@ public class MainActivity extends Activity {
         //datePicker get year from 1900 year.
         currentDate.setYear(datePicker.getYear() - 1900);
         
-        //
+        //If Sunday or Saturday, then all car can be drive.
+        chinaCalendar.setTime(currentDate);
+		//Sunday is 1,Monday is 2,... Saturday is 7 
+		int currentDayofWeek = chinaCalendar.get(Calendar.DAY_OF_WEEK);
+		if( currentDayofWeek == 1 || currentDayofWeek == 7 )
+		{
+			setResult(displayTextView, false);
+			return;
+		}
+        
+        //If current date is working day.
         boolean foundYourVehivleNumberinXml = false;
         
         //Read Xml file
@@ -100,10 +110,8 @@ public class MainActivity extends Activity {
                			 if( attributeCount > 0 )
                			 {
                				String dayofWeek = xpp.getAttributeValue(0);//Get Attribute "Day" value.
-                  			chinaCalendar.setTime(currentDate);
                   			//Sunday is 1,Monday is 2,... Saturday is 7 
-                  			int currentDayofWeek = chinaCalendar.get(Calendar.DAY_OF_WEEK);
-                  			currentDayofWeek--;
+               				currentDayofWeek--;
                    		 
                   			if( dayofWeek.equalsIgnoreCase(String.valueOf(currentDayofWeek) ))
                   			{
@@ -120,8 +128,8 @@ public class MainActivity extends Activity {
                   				}
                   				else
                   				{
-                   				//Skip to next node in "TimeDuration"
-                       			  xpp.next();
+                  				   //Skip to next node in "TimeDuration"
+                  				   xpp.next();
                                    eventType = xpp.getEventType();
                                    xmlNodeName = xpp.getName();
                   				}
@@ -129,26 +137,26 @@ public class MainActivity extends Activity {
 	                   		 else
 	                   		 {
 	                   			//Skip to next node in "TimeDuration"
-	                    			  xpp.next();
+	                    			xpp.next();
 	                                eventType = xpp.getEventType();
 	                                xmlNodeName = xpp.getName();
 	                   		 }
                			 }
                			 else
                			 {
-               			//Skip to next node in "TimeDuration"
-               			  xpp.next();
-                           eventType = xpp.getEventType();
-                           xmlNodeName = xpp.getName();
+               				 //Skip to next node in "TimeDuration"
+               				 xpp.next();
+               				 eventType = xpp.getEventType();
+               				 xmlNodeName = xpp.getName();
                			 }
                 		 
                		   }
                		   else
                		   {
-               			 //Skip to next node in "TimeDuration"
-              			  xpp.next();
-                          eventType = xpp.getEventType();
-                          xmlNodeName = xpp.getName();
+               			   //Skip to next node in "TimeDuration"
+               			   xpp.next();
+               			   eventType = xpp.getEventType();
+               			   xmlNodeName = xpp.getName();
                		   }
                		    
              		  }
@@ -161,15 +169,19 @@ public class MainActivity extends Activity {
              	   }
                 }
         	}
-        	
-        	
         	//Skip to next loop.
         	xpp.next();
         	eventType = xpp.getEventType();
         }
-        
                
-        if(foundYourVehivleNumberinXml)
+        setResult(displayTextView, foundYourVehivleNumberinXml);
+        
+       }
+
+	//Set Search result.
+	private void setResult(TextView displayTextView,
+			boolean foundYourVehivleNumberinXml) {
+		if(foundYourVehivleNumberinXml)
         {
         	displayTextView.setText(this.getString(R.string.limited) );
         }
@@ -177,11 +189,10 @@ public class MainActivity extends Activity {
         {
         	displayTextView.setText(this.getString(R.string.notlimited) );
         }
-        
-       }
+	}
         
    
-    public boolean hasGetDate(Date from,Date to,Date date)
+    public static boolean hasGetDate(Date from,Date to,Date date)
     {
     	if( date.compareTo(from)>=0 && date.compareTo(to) <=0)
     		return true;
@@ -190,3 +201,5 @@ public class MainActivity extends Activity {
     }
 
 }
+
+ 

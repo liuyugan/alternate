@@ -8,7 +8,8 @@
     <string name="search">查</string>
     <string name="limited">今天限行</string>
     <string name="notlimited">今天可以开车</string>
-	<string-array name="number_arrays">
+    <string name="update">更新</string>
+    <string-array name="number_arrays">
         <item>1</item>
         <item>2</item>
         <item>3</item>
@@ -21,4 +22,5 @@
         <item>0</item>
     </string-array>
 
+    <string name="Todayis">今天是 </string>
 </resources>
