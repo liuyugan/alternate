@@ -45,6 +45,7 @@ public final class R {
         public static final int app_name=0x7f060000;
         public static final int inputYourNumber=0x7f060002;
         public static final int limited=0x7f060005;
+        public static final int notChineseTimeZone=0x7f060007;
         public static final int notlimited=0x7f060006;
         public static final int result=0x7f060003;
         public static final int search=0x7f060004;

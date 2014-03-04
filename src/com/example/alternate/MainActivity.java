@@ -21,13 +21,43 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
+	
+	private Date _currentDateTime;
+	private Calendar _chinaCalendar;
+	private TextView _displayTextView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		//TODO:Remove below control
+		//Set numbers Array visible false.
 		Spinner numbersArray = (Spinner)findViewById(R.id.spinnerNumbers);
 		numbersArray.setVisibility(View.INVISIBLE);
+		
+		//Get Display result control.
+		_displayTextView = (TextView) findViewById(R.id.txtResult);
+		
+		//Get Chinese Time Zone.
+		TimeZone chinaTimeZone = TimeZone.getTimeZone("GTM+08:00");
+		_chinaCalendar = Calendar.getInstance(chinaTimeZone);
+		
+		//Time zone is not Chinese Beijing.
+		String defaultTimeZone = TimeZone.getDefault().getDisplayName();
+		if( defaultTimeZone.equalsIgnoreCase(chinaTimeZone.getDisplayName()) == false)
+		{
+			_displayTextView.setText(this.getString(R.string.notChineseTimeZone));
+		}
+				
+		//If today is Sunday or Saturday,then return.  		
+		_currentDateTime = getCurrentTimeByChinaTimeZone(_chinaCalendar);
+	}
+
+	private Date getCurrentTimeByChinaTimeZone(Calendar chinaCalendar) {
+		Date currentDate = new Date();
+	    currentDate = chinaCalendar.getTime();
+	    return currentDate;
 	}
 
 	@Override
@@ -39,29 +69,16 @@ public class MainActivity extends Activity {
 	
 	public void getResulte(View view) throws XmlPullParserException, IOException, ParseException
     {
-    	//TODO:If today is Saturday or Sunday
-    	
-    	TextView displayTextView = (TextView) findViewById(R.id.txtResult);
-                
-        //Get your input
-        Spinner numbersArray = (Spinner)findViewById(R.id.spinnerNumbers);
-        String vehicleNumber = numbersArray.getSelectedItem().toString();
+    	Date currentDate = getCurrentTimeByChinaTimeZone(_chinaCalendar);
         
-        //Get Current System Date.
-        Date currentDate = new Date();
-        TimeZone chinaTimeZone = TimeZone.getTimeZone("GTM+08:00");
-        Calendar chinaCalendar = Calendar.getInstance(chinaTimeZone);
-        currentDate = chinaCalendar.getTime();
-         
+    	//Get current date by select datepicker
         DatePicker datePicker = (DatePicker) findViewById(R.id.datePicker1);
         currentDate.setDate(datePicker.getDayOfMonth());
         currentDate.setMonth(datePicker.getMonth());
         //datePicker get year from 1900 year.
         currentDate.setYear(datePicker.getYear() - 1900);
         
-        //
-        boolean foundYourVehivleNumberinXml = false;
-        
+               
         //Read Xml file
         Resources res = this.getResources();
         XmlResourceParser xpp = res.getXml(R.xml.numbers);
@@ -102,9 +119,9 @@ public class MainActivity extends Activity {
                			 if( attributeCount > 0 )
                			 {
                				String dayofWeek = xpp.getAttributeValue(0);//Get Attribute "Day" value.
-                  			chinaCalendar.setTime(currentDate);
+                  			_chinaCalendar.setTime(currentDate);
                   			//Sunday is 1,Monday is 2,... Saturday is 7 
-                  			int currentDayofWeek = chinaCalendar.get(Calendar.DAY_OF_WEEK);
+                  			int currentDayofWeek = _chinaCalendar.get(Calendar.DAY_OF_WEEK);
                   			currentDayofWeek--;
                    		 
                   			if( dayofWeek.equalsIgnoreCase(String.valueOf(currentDayofWeek) ))
@@ -115,44 +132,32 @@ public class MainActivity extends Activity {
 	                             xmlNodeName = xpp.getName();
                   				
                   				String numbers = xpp.nextText();
-                  				/*if(numbers!=null && numbers.contains(vehicleNumber) )
-                  				{
-                  					foundYourVehivleNumberinXml = true;
-                  				     	break;//if found.
-                  				}
-                  				else
-                  				{
-                   				//Skip to next node in "TimeDuration"
-                       			  xpp.next();
-                                   eventType = xpp.getEventType();
-                                   xmlNodeName = xpp.getName();
-                  				}*/
-                  				
+                  				                  				
                   				if(numbers!=null)
                   				{
-                  					displayTextView.setText(this.getString(R.string.limited)+":"+numbers );
+                  					_displayTextView.setText(this.getString(R.string.limited)+":"+numbers );
                   					break;
                   				}
                   				else
                   				{
                    				//Skip to next node in "TimeDuration"
                        			  xpp.next();
-                                   eventType = xpp.getEventType();
-                                   xmlNodeName = xpp.getName();
+                                  eventType = xpp.getEventType();
+                                  xmlNodeName = xpp.getName();
                   				}
                   			}
 	                   		 else
 	                   		 {
 	                   			//Skip to next node in "TimeDuration"
-	                    			  xpp.next();
-	                                eventType = xpp.getEventType();
-	                                xmlNodeName = xpp.getName();
+	                    		  xpp.next();
+	                              eventType = xpp.getEventType();
+	                              xmlNodeName = xpp.getName();
 	                   		 }
                			 }
                			 else
                			 {
-               			//Skip to next node in "TimeDuration"
-               			  xpp.next();
+               			   //Skip to next node in "TimeDuration"
+               			   xpp.next();
                            eventType = xpp.getEventType();
                            xmlNodeName = xpp.getName();
                			 }
@@ -160,7 +165,7 @@ public class MainActivity extends Activity {
                		   }
                		   else
                		   {
-               			 //Skip to next node in "TimeDuration"
+               			  //Skip to next node in "TimeDuration"
               			  xpp.next();
                           eventType = xpp.getEventType();
                           xmlNodeName = xpp.getName();
@@ -176,22 +181,11 @@ public class MainActivity extends Activity {
              	   }
                 }
         	}
-        	
-        	
+        	        	
         	//Skip to next loop.
         	xpp.next();
         	eventType = xpp.getEventType();
         }
-        
-               
-        /*if(foundYourVehivleNumberinXml)
-        {
-        	displayTextView.setText(this.getString(R.string.limited) );
-        }
-        else
-        {
-        	displayTextView.setText(this.getString(R.string.notlimited) );
-        }*/
         
        }
         
