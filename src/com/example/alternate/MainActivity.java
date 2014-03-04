@@ -16,6 +16,7 @@ import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -39,17 +40,28 @@ public class MainActivity extends Activity {
 		//Get Display result control.
 		_displayTextView = (TextView) findViewById(R.id.txtResult);
 		
+		//TODO:Need Check for real devices.
 		//Get Chinese Time Zone.
-		TimeZone chinaTimeZone = TimeZone.getTimeZone("GTM+08:00");
-		_chinaCalendar = Calendar.getInstance(chinaTimeZone);
+		//TimeZone chinaTimeZone = TimeZone.getTimeZone("GTM+08:00");//Asia/Shanghai
+		TimeZone chinaTimeZone = TimeZone.getTimeZone("Asia/Shanghai");
+		TimeZone defaultTimeZone = TimeZone.getDefault();
 		
+		String chinaTemp = chinaTimeZone.getDisplayName(true,TimeZone.LONG);
+		String defaultTemp = defaultTimeZone.getDisplayName(true,TimeZone.LONG);
+		
+		String chTimeZoneId = chinaTimeZone.getID();
+		String defaultTimeZoneId = defaultTimeZone.getID();
 		//Time zone is not Chinese Beijing.
-		String defaultTimeZone = TimeZone.getDefault().getDisplayName();
-		if( defaultTimeZone.equalsIgnoreCase(chinaTimeZone.getDisplayName()) == false)
+	
+		
+		if( defaultTimeZoneId.equalsIgnoreCase(chTimeZoneId) == false)
 		{
 			_displayTextView.setText(this.getString(R.string.notChineseTimeZone));
+			//Button searchBtn = (Button)findViewById(R.id.btnSearch);
 		}
-				
+		
+		
+		_chinaCalendar = Calendar.getInstance(chinaTimeZone);		
 		//If today is Sunday or Saturday,then return.  		
 		_currentDateTime = getCurrentTimeByChinaTimeZone(_chinaCalendar);
 	}
@@ -123,6 +135,12 @@ public class MainActivity extends Activity {
                   			//Sunday is 1,Monday is 2,... Saturday is 7 
                   			int currentDayofWeek = _chinaCalendar.get(Calendar.DAY_OF_WEEK);
                   			currentDayofWeek--;
+                  			
+                  			if( currentDayofWeek == 0 || currentDayofWeek == 6 )
+                  			{
+                  				_displayTextView.setText(this.getString(R.string.notlimitedOn67) );
+                  				break;
+                  			}
                    		 
                   			if( dayofWeek.equalsIgnoreCase(String.valueOf(currentDayofWeek) ))
                   			{

@@ -8,7 +8,8 @@
     <string name="search">查</string>
     <string name="limited">今天限行</string>
     <string name="notlimited">今天可以开车</string>
-    <string name="notChineseTimeZone">您的系统时间不是北京时间哦</string>
+    <string name="notChineseTimeZone">您的系统时间不是北京时间哦,这样会影响查询结果啊！</string> 
+    <string name="notlimitedOn67">周六日不限行</string>
 	<string-array name="number_arrays">
         <item>1</item>
         <item>2</item>
