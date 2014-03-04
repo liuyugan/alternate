@@ -26,6 +26,8 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		Spinner numbersArray = (Spinner)findViewById(R.id.spinnerNumbers);
+		numbersArray.setVisibility(View.INVISIBLE);
 	}
 
 	@Override
@@ -113,10 +115,23 @@ public class MainActivity extends Activity {
 	                             xmlNodeName = xpp.getName();
                   				
                   				String numbers = xpp.nextText();
-                  				if(numbers!=null && numbers.contains(vehicleNumber) )
+                  				/*if(numbers!=null && numbers.contains(vehicleNumber) )
                   				{
                   					foundYourVehivleNumberinXml = true;
                   				     	break;//if found.
+                  				}
+                  				else
+                  				{
+                   				//Skip to next node in "TimeDuration"
+                       			  xpp.next();
+                                   eventType = xpp.getEventType();
+                                   xmlNodeName = xpp.getName();
+                  				}*/
+                  				
+                  				if(numbers!=null)
+                  				{
+                  					displayTextView.setText(this.getString(R.string.limited)+":"+numbers );
+                  					break;
                   				}
                   				else
                   				{
@@ -169,14 +184,14 @@ public class MainActivity extends Activity {
         }
         
                
-        if(foundYourVehivleNumberinXml)
+        /*if(foundYourVehivleNumberinXml)
         {
         	displayTextView.setText(this.getString(R.string.limited) );
         }
         else
         {
         	displayTextView.setText(this.getString(R.string.notlimited) );
-        }
+        }*/
         
        }
         
